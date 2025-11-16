@@ -4,14 +4,27 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "NODE_ENV=production node dist/server.js"
+    "start": "NODE_ENV=production node dist/server.js",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:drop": "drizzle-kit drop"
   },
   "dependencies": {
+    "@clerk/backend": "^2.22.0",
     "@hono/node-server": "^1.19.6",
+    "@hono/zod-validator": "^0.7.4",
+    "@livekit/agents": "^1.0.18",
+    "@livekit/agents-plugin-deepgram": "^1.0.18",
+    "@livekit/agents-plugin-elevenlabs": "^1.0.18",
+    "@livekit/agents-plugin-openai": "^1.0.18",
+    "@livekit/protocol": "^1.43.0",
     "@repo/constants": "workspace:*",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
     "hono": "^4.8.10",
+    "livekit-server-sdk": "^2.14.1",
+    "node-fetch": "^3.3.2",
     "postgres": "^3.4.7",
     "zod": "^4.1.8"
   },
