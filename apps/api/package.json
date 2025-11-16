@@ -2,7 +2,7 @@
   "name": "api",
   "type": "module",
   "scripts": {
-    "dev": "srvx"
+    "dev": "srvx --port 8080"
   },
   "dependencies": {
     "hono": "^4.8.10",
