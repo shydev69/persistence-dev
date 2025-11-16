@@ -10,7 +10,7 @@ const envSchema = z.object({
     .string()
     .refine(
       (url) => url.startsWith("ws://") || url.startsWith("wss://"),
-      "LIVEKIT_WS_URL must start with ws:// or wss://"
+      "LIVEKIT_WS_URL must start with ws:// or wss://",
     )
     .optional(),
 
