@@ -6,7 +6,7 @@ describe("Agent Configuration", () => {
     assert.ok(typeof process !== "undefined", "Process should be available");
     assert.ok(
       typeof process.env !== "undefined",
-      "Environment variables should be accessible"
+      "Environment variables should be accessible",
     );
   });
 
@@ -16,11 +16,11 @@ describe("Agent Configuration", () => {
 
     assert.ok(
       typeof path.dirname === "function",
-      "Path module should be available"
+      "Path module should be available",
     );
     assert.ok(
       typeof url.fileURLToPath === "function",
-      "URL module should be available"
+      "URL module should be available",
     );
   });
 
