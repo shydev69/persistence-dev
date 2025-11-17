@@ -2,45 +2,59 @@
 
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
+import { useBreadcrumbContext } from "@/components/breadcrumbs-context";
 
 type BreadcrumbItem = {
   title: string;
   link: string;
 };
 
-// This allows to add custom title as well
 const routeMapping: Record<string, BreadcrumbItem[]> = {
-  "/dashboard": [{ title: "Dashboard", link: "/dashboard" }],
-  "/dashboard/employee": [
-    { title: "Dashboard", link: "/dashboard" },
-    { title: "Employee", link: "/dashboard/employee" },
-  ],
-  "/dashboard/product": [
-    { title: "Dashboard", link: "/dashboard" },
-    { title: "Product", link: "/dashboard/product" },
-  ],
-  // Add more custom mappings as needed
+  "/dashboard/employee": [{ title: "Employee", link: "/dashboard/employee" }],
 };
 
 export function useBreadcrumbs() {
   const pathname = usePathname();
+  let dynamicTitles: Map<string, string> | undefined;
+
+  try {
+    const context = useBreadcrumbContext();
+    dynamicTitles = context.dynamicTitles;
+  } catch {}
 
   const breadcrumbs = useMemo(() => {
-    // Check if we have a custom mapping for this exact path
     if (routeMapping[pathname]) {
       return routeMapping[pathname];
     }
 
-    // If no exact match, fall back to generating breadcrumbs from the path
     const segments = pathname.split("/").filter(Boolean);
     return segments.map((segment, index) => {
       const path = `/${segments.slice(0, index + 1).join("/")}`;
+
+      let dynamicTitle = dynamicTitles?.get(path);
+
+      if (!dynamicTitle && dynamicTitles) {
+        for (const [titlePath, title] of dynamicTitles.entries()) {
+          if (titlePath !== path && path.startsWith(titlePath + "/")) {
+            const parentSegments = titlePath.split("/").filter(Boolean);
+            const currentSegments = path.split("/").filter(Boolean);
+            if (currentSegments.length === parentSegments.length + 1) {
+              dynamicTitle = title;
+              break;
+            }
+          }
+        }
+      }
+
+      const title =
+        dynamicTitle || segment.charAt(0).toUpperCase() + segment.slice(1);
+
       return {
-        title: segment.charAt(0).toUpperCase() + segment.slice(1),
+        title,
         link: path,
       };
     });
-  }, [pathname]);
+  }, [pathname, dynamicTitles]);
 
   return breadcrumbs;
 }
