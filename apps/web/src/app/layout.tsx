@@ -8,7 +8,6 @@ import { cookies } from "next/headers";
 import NextTopLoader from "nextjs-toploader";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
-import "./theme.css";
 
 const META_THEME_COLORS = {
   light: "#ffffff",
@@ -16,8 +15,8 @@ const META_THEME_COLORS = {
 };
 
 export const metadata: Metadata = {
-  title: "Next Shadcn",
-  description: "Basic dashboard with Next.js and Shadcn",
+  title: "Bohemia AI",
+  description: "Publish voice agents",
 };
 
 export const viewport: Viewport = {
@@ -53,7 +52,7 @@ export default async function RootLayout({
           "bg-background overflow-hidden overscroll-none font-sans antialiased",
           activeThemeValue ? `theme-${activeThemeValue}` : "",
           isScaled ? "theme-scaled" : "",
-          fontVariables,
+          fontVariables
         )}
       >
         <NextTopLoader color="var(--primary)" showSpinner={false} />
