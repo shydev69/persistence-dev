@@ -5,12 +5,12 @@ const envSchema = z.object({
   PORT: z.string().default("8080"),
 
   LIVEKIT_API_KEY: z.string().optional(),
-  LIVEKIT_SECRET: z.string().optional(),
-  LIVEKIT_WS_URL: z
+  LIVEKIT_API_SECRET: z.string().optional(),
+  LIVEKIT_URL: z
     .string()
     .refine(
       (url) => url.startsWith("ws://") || url.startsWith("wss://"),
-      "LIVEKIT_WS_URL must start with ws:// or wss://"
+      "LIVEKIT_URL must start with ws:// or wss://"
     )
     .optional(),
 

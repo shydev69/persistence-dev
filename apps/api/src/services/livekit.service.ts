@@ -22,13 +22,13 @@ export class LiveKitService {
   constructor() {
     const env = getEnv();
 
-    if (!env.LIVEKIT_API_KEY || !env.LIVEKIT_SECRET) {
+    if (!env.LIVEKIT_API_KEY || !env.LIVEKIT_API_SECRET) {
       throw new Error("LiveKit credentials not configured");
     }
 
     this.apiKey = env.LIVEKIT_API_KEY;
-    this.secret = env.LIVEKIT_SECRET;
-    this.wsUrl = env.LIVEKIT_WS_URL || "ws://localhost:7880";
+    this.secret = env.LIVEKIT_API_SECRET;
+    this.wsUrl = env.LIVEKIT_URL || "ws://localhost:7880";
 
     const httpUrl = this.wsUrl
       .replace(/^ws:/, "http:")
